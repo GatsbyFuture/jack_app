@@ -1,0 +1,1 @@
+export const logo = 'https://online.hrplus.uz/assets/images/jacktube_2.jpg'
