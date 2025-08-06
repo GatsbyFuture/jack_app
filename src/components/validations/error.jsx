@@ -11,7 +11,7 @@ const ValidationError = () => {
     return error !== null && errorMessage().map((error, index) => {
         return (
             <div key={index} className="alert alert-danger m-2 p-2" role="alert">
-                {error} 
+                {error}
             </div>
         )
     })
