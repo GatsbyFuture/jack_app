@@ -4,6 +4,7 @@ import AuthService from '../service/auth';
 import {logo} from '../constants';
 import {Input} from '../ui';
 import {signUserStart, signUserSuccess, signUserFailure} from '../slice/auth';
+import {ValidationError} from './';
 
 const Login = () => {
     const [email, setEmail] = useState('');
@@ -31,7 +32,7 @@ const Login = () => {
                     <img className="mb-4" src={logo} alt="" width="200"
                          height="57"/>
                     <h1 className="h3 mb-3 fw-normal">Please register</h1>
-
+                    <ValidationError/>
                     <Input label={'Email address'} state={email} setState={setEmail}/>
                     <Input label={'Password'} state={password} setState={setPassword}/>
 

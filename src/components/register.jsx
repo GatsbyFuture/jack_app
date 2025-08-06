@@ -1,9 +1,10 @@
-import {logo} from '../constants';
-import {Input} from '../ui';
 import {useState} from 'react';
 import {useDispatch, useSelector} from 'react-redux';
-import {signUserStart, signUserSuccess, signUserFailure} from '../slice/auth';
 import AuthService from '../service/auth';
+import {Input} from '../ui';
+import {logo} from '../constants';
+import {signUserStart, signUserSuccess, signUserFailure} from '../slice/auth';
+import {ValidationError} from './';
 
 const Register = () => {
     const [name, setName] = useState('');
@@ -33,7 +34,7 @@ const Register = () => {
                     <img className="mb-4" src={logo} alt="" width="200"
                          height="57"/>
                     <h1 className="h3 mb-3 fw-normal">Please register</h1>
-
+                    <ValidationError/>
                     <Input label={'Username'} state={name} setState={setName}/>
                     <Input label={'Email address'} state={email} setState={setEmail}/>
                     <Input label={'Password'} state={password} setState={setPassword}/>
