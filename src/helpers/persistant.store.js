@@ -13,3 +13,11 @@ export const getItem = (key) => {
         console.log(e);
     }
 }
+
+export const removeItem = (key) => {
+    try {
+        localStorage.removeItem(key);
+    } catch (e) {
+        console.log('when deleted token in localstorage:', e);
+    }
+}
