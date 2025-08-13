@@ -1,16 +1,18 @@
-import {useState} from 'react';
+import {useEffect, useState} from 'react';
 import {useSelector, useDispatch} from 'react-redux';
 import AuthService from '../service/auth';
 import {logo} from '../constants';
 import {Input} from '../ui';
 import {signUserStart, signUserSuccess, signUserFailure} from '../slice/auth';
 import {ValidationError} from './';
+import {useNavigate} from 'react-router-dom';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const dispatch = useDispatch();
-    const {isLoading} = useSelector((state) => state.auth);
+    const {isLoading, loggedIn} = useSelector((state) => state.auth);
+    const navigate = useNavigate();
 
     const loginHandler = async (e) => {
         e.preventDefault();
@@ -18,12 +20,18 @@ const Login = () => {
         const user = {email, password};
         try {
             const res = await AuthService.userLogin(user)
-            console.log(res);
             dispatch(signUserSuccess(res.user));
+            navigate('/');
         } catch (e) {
             dispatch(signUserFailure(e.response.data.errors));
         }
     }
+
+    useEffect(() => {
+        if (loggedIn) {
+            navigate('/');
+        }
+    }, [loggedIn]);
 
     return (
         <div className="text-center">
