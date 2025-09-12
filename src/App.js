@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import {Routes, Route} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
-import {Main, Login, Register, Navbar} from './components';
+import {Main, Login, Register, Navbar, ArticleDetail} from './components';
 import {signUserSuccess} from './slice/auth';
 import AuthService from './service/auth';
 import {getItem} from './helpers/persistant.store';
@@ -42,16 +42,17 @@ function App() {
         getArticles().then(() => undefined);
     }, []);
 
-    return (
-        <div>
-            <Navbar/>
+    return (<div>
+        <Navbar/>
+        <div className={'container'}>
             <Routes>
                 <Route path="/" element={<Main/>}/>
                 <Route path="/login" element={<Login/>}/>
                 <Route path="/register" element={<Register/>}/>
+                <Route path="/article/:slug" element={<ArticleDetail/>}/>
             </Routes>
         </div>
-    );
+    </div>);
 }
 
 export default App;
