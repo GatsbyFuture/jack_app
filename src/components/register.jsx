@@ -21,7 +21,7 @@ const Register = () => {
         const user = {username: name, email, password};
         try {
             const res = await AuthService.userRegister(user);
-            console.log(res);
+            // console.log(res);
             dispatch(signUserSuccess(res.user));
             navigate('/');
         } catch (e) {

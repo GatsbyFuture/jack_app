@@ -5,6 +5,8 @@ import {Main, Login, Register, Navbar} from './components';
 import {signUserSuccess} from './slice/auth';
 import AuthService from './service/auth';
 import {getItem} from './helpers/persistant.store';
+import ArticlesService from './service/article';
+import {getArticlesStart, getArticlesSuccess} from './slice/article';
 
 function App() {
     const dispatch = useDispatch();
@@ -18,11 +20,26 @@ function App() {
         }
     }
 
+    const getArticles = async () => {
+        dispatch(getArticlesStart());
+
+        try {
+            const data = await ArticlesService.getArticles();
+            console.log(data);
+            dispatch(getArticlesSuccess(data.articles));
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
     useEffect(() => {
         const token = getItem('token');
+
         if (token) {
             getUser().then(() => undefined);
         }
+
+        getArticles().then(() => undefined);
     }, []);
 
     return (
