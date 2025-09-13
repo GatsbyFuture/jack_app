@@ -3,11 +3,12 @@ import {Loader} from '../ui';
 import {useNavigate} from 'react-router-dom';
 import {getArticlesStart, getArticlesSuccess} from '../slice/article';
 import ArticlesService from '../service/article';
-import {useEffect} from 'react';
+import {Fragment, useEffect} from 'react';
 
 const Main = () => {
     const dispatch = useDispatch();
     const {articles, isLoading} = useSelector(state => state.article)
+    const {loggedIn, user} = useSelector(state => state.auth);
     const navigate = useNavigate();
 
     const getArticles = async () => {
@@ -15,6 +16,15 @@ const Main = () => {
         try {
             const data = await ArticlesService.getArticles();
             dispatch(getArticlesSuccess(data.articles));
+        } catch (e) {
+            console.log(e);
+        }
+    }
+
+    const deleteArticle = async (slug) => {
+        try {
+            await ArticlesService.deleteArticle(slug);
+            getArticles().then(() => undefined);
         } catch (e) {
             console.log(e);
         }
@@ -50,10 +60,17 @@ const Main = () => {
                                             <button onClick={() => navigate(`/article/${article.slug}`)} type="button"
                                                     className="btn btn-sm btn-outline-success">View
                                             </button>
-                                            <button type="button" className="btn btn-sm btn-outline-secondary">Edit
-                                            </button>
-                                            <button type="button" className="btn btn-sm btn-outline-danger">Delete
-                                            </button>
+                                            {loggedIn && user.username === article.author.username && (
+                                                <Fragment>
+                                                    <button type="button"
+                                                            className="btn btn-sm btn-outline-secondary">Edit
+                                                    </button>
+                                                    <button type="button"
+                                                            onClick={() => deleteArticle(article.slug)}
+                                                            className="btn btn-sm btn-outline-danger">Delete
+                                                    </button>
+                                                </Fragment>
+                                            )}
                                         </div>
                                         <small
                                             className="text-muted fw-bold text-capitalize">{article.author.username}</small>
