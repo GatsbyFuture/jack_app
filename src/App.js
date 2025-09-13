@@ -25,7 +25,6 @@ function App() {
 
         try {
             const data = await ArticlesService.getArticles();
-            console.log(data);
             dispatch(getArticlesSuccess(data.articles));
         } catch (e) {
             console.log(e);
