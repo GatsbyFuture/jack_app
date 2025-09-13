@@ -63,6 +63,7 @@ const Main = () => {
                                             {loggedIn && user.username === article.author.username && (
                                                 <Fragment>
                                                     <button type="button"
+                                                            onClick={() => navigate(`/edit-article/${article.slug}`)}
                                                             className="btn btn-sm btn-outline-secondary">Edit
                                                     </button>
                                                     <button type="button"

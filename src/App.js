@@ -1,7 +1,7 @@
 import {useEffect} from 'react';
 import {Routes, Route} from 'react-router-dom';
 import {useDispatch} from 'react-redux';
-import {Main, Login, Register, Navbar, ArticleDetail, CreateArticle} from './components';
+import {Main, Login, Register, Navbar, ArticleDetail, CreateArticle, EditArticle} from './components';
 import {signUserSuccess} from './slice/auth';
 import AuthService from './service/auth';
 import {getItem} from './helpers/persistant.store';
@@ -50,6 +50,7 @@ function App() {
                 <Route path="/register" element={<Register/>}/>
                 <Route path="/article/:slug" element={<ArticleDetail/>}/>
                 <Route path="create-article" element={<CreateArticle/>}/>
+                <Route path="edit-article/:slug" element={<EditArticle/>}/>
             </Routes>
         </div>
     </div>);
