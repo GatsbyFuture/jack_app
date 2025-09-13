@@ -9,7 +9,7 @@ import {
 } from '../slice/article';
 import ArticleService from '../service/article';
 import {useDispatch} from 'react-redux';
-import {useParams} from 'react-router-dom';
+import {useNavigate, useParams} from 'react-router-dom';
 
 const EditArticle = () => {
     const [title, setTitle] = useState('');
@@ -17,6 +17,7 @@ const EditArticle = () => {
     const [body, setBody] = useState('');
     const dispatch = useDispatch();
     const {slug} = useParams();
+    const navigate = useNavigate();
 
     useEffect(() => {
         const getArticle = async () => {
@@ -39,9 +40,9 @@ const EditArticle = () => {
         const article = {title, description, body};
         dispatch(postArticleState());
         try {
-            await ArticleService.postArticle(article);
+            await ArticleService.editArticle(slug, article);
             dispatch(postArticleSuccess());
-            // navigate('/');
+            navigate('/');
         } catch (e) {
             dispatch(postArticleFailure());
         }
